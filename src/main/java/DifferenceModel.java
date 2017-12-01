@@ -1,7 +1,8 @@
 import java.util.*;
 
 /***
- * 人狗鸡米过河问题
+ * 在度娘上查找差分方程与线性代数的资料，发现此篇，无聊之中，便想用算法实现一个，我想应该有更好的办法吧。有哪位哥们可以指教一下,当然，还有些问题，原因是因为最后少了一个出栈操作
+ * 参考 ：@see <a href="https://wenku.baidu.com/view/55c0bb0ba216147916112812.html">基于线性代数与 差分方程方法的模型</a>
  */
 public class DifferenceModel {
 
@@ -17,11 +18,10 @@ public class DifferenceModel {
             getState("人")};
 
 
-    private int[] forbitMask ={ getState("人","鸡","米"),
+    //禁止出现的状态
+    private int[] forbidMask ={ getState("人","鸡","米"),
             getState("人","鸡","狗"),};
-
-
-    private int[] forbit ={ getState("鸡","米"),
+    private int[] forbid ={ getState("鸡","米"),
             getState("鸡","狗"),};
 
 
@@ -71,12 +71,12 @@ public class DifferenceModel {
     private boolean check(int state){
 
 
-        for(int i=0;i<forbitMask.length;i++){
-            if((state & forbitMask[i])==forbit[i]){
+        for(int i = 0; i< forbidMask.length; i++){
+            if((state & forbidMask[i])== forbid[i]){
                 return false;
             }
 
-            if(((~state) & forbitMask[i])==forbit[i]){
+            if(((~state) & forbidMask[i])== forbid[i]){
 
                 return false;
             }
